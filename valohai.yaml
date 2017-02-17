@@ -1,0 +1,23 @@
+---
+
+- step:
+    name: run detect on darknet sample images
+    image: 905675611115.dkr.ecr.eu-west-1.amazonaws.com/valohai/darknet:gpu-b61bcf5
+    command:
+      - ./darknet detect cfg/yolo.cfg /tmp/yolo-weights/yolo.weights data/dog.jpg
+      - mv predictions.jpg /tmp/out/dog_prediction.jpg
+      - ./darknet detect cfg/yolo.cfg /tmp/yolo-weights/yolo.weights data/person.jpg
+      - mv predictions.jpg /tmp/out/person_prediction.jpg
+      - ./darknet detect cfg/yolo.cfg /tmp/yolo-weights/yolo.weights data/horses.jpg
+      - mv predictions.jpg /tmp/out/horses_prediction.jpg
+      - ./darknet detect cfg/yolo.cfg /tmp/yolo-weights/yolo.weights data/eagle.jpg
+      - mv predictions.jpg /tmp/out/eagle_prediction.jpg
+    inputs:
+      - name: yolo-weights
+        default: http://pjreddie.com/media/files/yolo.weights
+    parameters:
+      - name: Detection Threshold
+        pass-as: -thresh {v}
+        description: Object detected confidence
+        type: float
+        default: 0.25
