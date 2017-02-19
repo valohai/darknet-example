@@ -31,3 +31,33 @@
         default: http://pjreddie.com/media/files/yolo.weights
       - name: images
         default: https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/NYCSub_7_car_exterior.jpg/1280px-NYCSub_7_car_exterior.jpg
+
+- step:
+    name: generate text with RNNs
+    image: 905675611115.dkr.ecr.eu-west-1.amazonaws.com/valohai/darknet:gpu-b61bcf5
+    command:
+      - /darknet/darknet rnn generate /darknet/cfg/rnn.cfg /tmp/rnn-weights/grrm.weights {parameters}
+    inputs:
+      - name: rnn-weights
+        default: http://pjreddie.com/media/files/grrm.weights
+    parameters:
+      - name: len
+        pass-as: -len {v}
+        description: change the length of text generated, default 1,000
+        type: integer
+        default: 1000
+      - name: srand
+        pass-as: -srand {v}
+        description: seed the random number generator, for repeatable runs
+        type: integer
+        default: 0
+      - name: seed
+        pass-as: -seed {v}
+        description: seed the RNN with the given string
+        type: string
+        default: seedy seed
+      - name: temp
+        pass-as: -temp {v}
+        description: set the temperature for sampling
+        type: float
+        default: 0.7
