@@ -61,3 +61,54 @@
         description: set the temperature for sampling
         type: float
         default: 0.7
+
+- step:
+    name: generate nightmare image
+    image: 905675611115.dkr.ecr.eu-west-1.amazonaws.com/valohai/darknet:gpu-b61bcf5
+    command:
+      - /darknet/darknet nightmare /darknet/cfg/vgg-conv.cfg /tmp/weights/vgg-conv.weights /darknet/data/scream.jpg 5 {parameters}
+      - mv /darknet/scream_vgg-conv_5_000000.jpg /tmp/out
+    inputs:
+      - name: weights
+        default: http://pjreddie.com/media/files/vgg-conv.weights
+    parameters:
+      - name: Rounds
+        pass-as: -rounds {v}
+        description: More rounds means more images generated and usually more change to the original image.
+        type: integer
+        default: 1
+      - name: Iterations
+        pass-as: -iters {v}
+        description: More iterations means more change to the image per round.
+        type: integer
+        default: 10
+      - name: Range
+        pass-as: -range {v}
+        description: If set to one, only the given layer is chosen at every iteration. Otherwise, a layer is chosen randomly within than range (e.g. 10 -range 3 will choose between layers 9-11).
+        type: integer
+        default: 1
+      - name: Octaves
+        pass-as: -octaves {v}
+        description: At one octave, only the full size image is examined. Each additional octave adds a smaller version of the image (3/4 the size of the previous octave).
+        type: integer
+        default: 4
+      - name: Learning Rate
+        pass-as: -rate {v}
+        description: Higher means more change to the image per iteration but also some instability and imprecision.
+        type: float
+        default: 0.05
+      - name: Threshold
+        pass-as: -thresh {v}
+        description: Only features over x standard deviations away from the mean are magnified in the target layer. A higher threshold means fewer features are magnified.
+        type: float
+        default: 1.0
+      - name: Zoom
+        pass-as: -zoom {v}
+        description: You can optionally add a zoom in (x < 1) or zoom out (x > 1) to be applied to the image after each round.
+        type: float
+        default: 1.0
+      - name: Rotate
+        pass-as: -rotate {v}
+        description: Optional rotation after each round.
+        type: float
+        default: 0.0
