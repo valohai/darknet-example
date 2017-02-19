@@ -4,13 +4,13 @@
     name: run detect on darknet sample images
     image: 905675611115.dkr.ecr.eu-west-1.amazonaws.com/valohai/darknet:gpu-b61bcf5
     command:
-      - ./darknet detect cfg/yolo.cfg /tmp/yolo-weights/yolo.weights data/dog.jpg
+      - ./darknet detect cfg/yolo.cfg /tmp/yolo-weights/yolo.weights data/dog.jpg {parameters}
       - mv predictions.jpg /tmp/out/dog_prediction.jpg
-      - ./darknet detect cfg/yolo.cfg /tmp/yolo-weights/yolo.weights data/person.jpg
+      - ./darknet detect cfg/yolo.cfg /tmp/yolo-weights/yolo.weights data/person.jpg {parameters}
       - mv predictions.jpg /tmp/out/person_prediction.jpg
-      - ./darknet detect cfg/yolo.cfg /tmp/yolo-weights/yolo.weights data/horses.jpg
+      - ./darknet detect cfg/yolo.cfg /tmp/yolo-weights/yolo.weights data/horses.jpg {parameters}
       - mv predictions.jpg /tmp/out/horses_prediction.jpg
-      - ./darknet detect cfg/yolo.cfg /tmp/yolo-weights/yolo.weights data/eagle.jpg
+      - ./darknet detect cfg/yolo.cfg /tmp/yolo-weights/yolo.weights data/eagle.jpg {parameters}
       - mv predictions.jpg /tmp/out/eagle_prediction.jpg
     inputs:
       - name: yolo-weights
