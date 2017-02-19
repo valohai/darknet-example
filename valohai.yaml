@@ -21,3 +21,13 @@
         description: Object detected confidence
         type: float
         default: 0.25
+
+- step:
+    name: run detect on custom image
+    image: 905675611115.dkr.ecr.eu-west-1.amazonaws.com/valohai/darknet:gpu-b61bcf5
+    command: python /tmp/code/detect.py
+    inputs:
+      - name: yolo-weights
+        default: http://pjreddie.com/media/files/yolo.weights
+      - name: images
+        default: https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/NYCSub_7_car_exterior.jpg/1280px-NYCSub_7_car_exterior.jpg
