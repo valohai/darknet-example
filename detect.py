@@ -1,18 +1,23 @@
+import os
 import subprocess
 from shutil import move
-from os import listdir
-from os.path import isfile, join
 
-images_path = '/tmp/images'
-image_files = [f for f in listdir(images_path) if isfile(join(images_path, f))]
+inputs_dir = os.getenv('VH_INPUTS_DIR', '/tmp/images')
+outputs_dir = os.getenv('VH_OUTPUTS_DIR', '/tmp/predictions')
+
+images_path = os.path.join(inputs_dir, 'images')
+image_files = [f for f in os.listdir(images_path) if os.path.isfile(os.path.join(images_path, f))]
+
+# Darknet crashes if not in the directory: 'Couldn't open file: cfg/coco.data'
+os.chdir('/darknet')
 
 for image_filename in image_files:
-    image_location = join(images_path, image_filename)
+    image_location = os.path.join(images_path, image_filename)
     error_code = subprocess.call([
-        '/darknet/darknet',
+        './darknet',
         'detect',
-        'cfg/yolo.cfg',
-        '/tmp/yolo-weights/yolo.weights',
+        './cfg/yolo.cfg',
+        os.path.join(inputs_dir, 'yolo-weights/yolo.weights'),
         image_location,
     ])
-    move('/darknet/predictions.jpg', '/tmp/out/%s' % image_filename)
+    move('./predictions.jpg', os.path.join(outputs_dir, image_filename))
