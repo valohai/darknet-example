@@ -1,29 +1,6 @@
 ---
 
 - step:
-    name: Run detect on darknet sample images, cli usage example
-    image: valohai/darknet:b61bcf5-cuda8.0-cudnn5-devel-ubuntu16.04
-    command:
-      - cd /darknet
-      - /darknet/darknet detect /darknet/cfg/yolo.cfg $VH_INPUTS_DIR/yolo-weights/yolo.weights /darknet/data/dog.jpg {parameters}
-      - mv /darknet/predictions.jpg $VH_OUTPUTS_DIR/dog_prediction.jpg
-      - /darknet/darknet detect /darknet/cfg/yolo.cfg $VH_INPUTS_DIR/yolo-weights/yolo.weights /darknet/data/person.jpg {parameters}
-      - mv /darknet/predictions.jpg $VH_OUTPUTS_DIR/person_prediction.jpg
-      - /darknet/darknet detect /darknet/cfg/yolo.cfg $VH_INPUTS_DIR/yolo-weights/yolo.weights /darknet/data/horses.jpg {parameters}
-      - mv /darknet/predictions.jpg $VH_OUTPUTS_DIR/horses_prediction.jpg
-      - /darknet/darknet detect /darknet/cfg/yolo.cfg $VH_INPUTS_DIR/yolo-weights/yolo.weights /darknet/data/eagle.jpg {parameters}
-      - mv /darknet/predictions.jpg $VH_OUTPUTS_DIR/eagle_prediction.jpg
-    inputs:
-      - name: yolo-weights
-        default: http://pjreddie.com/media/files/yolo.weights
-    parameters:
-      - name: Detection Threshold
-        pass-as: -thresh {v}
-        description: Object detected confidence
-        type: float
-        default: 0.25
-
-- step:
     name: Generate text with RNNs, CLI usage example
     image: valohai/darknet:b61bcf5-cuda8.0-cudnn5-devel-ubuntu16.04
     command:
@@ -52,6 +29,29 @@
         description: set the temperature for sampling
         type: float
         default: 0.7
+
+- step:
+    name: Run detect on darknet sample images, cli usage example
+    image: valohai/darknet:b61bcf5-cuda8.0-cudnn5-devel-ubuntu16.04
+    command:
+      - cd /darknet
+      - /darknet/darknet detect /darknet/cfg/yolo.cfg $VH_INPUTS_DIR/yolo-weights/yolo.weights /darknet/data/dog.jpg {parameters}
+      - mv /darknet/predictions.jpg $VH_OUTPUTS_DIR/dog_prediction.jpg
+      - /darknet/darknet detect /darknet/cfg/yolo.cfg $VH_INPUTS_DIR/yolo-weights/yolo.weights /darknet/data/person.jpg {parameters}
+      - mv /darknet/predictions.jpg $VH_OUTPUTS_DIR/person_prediction.jpg
+      - /darknet/darknet detect /darknet/cfg/yolo.cfg $VH_INPUTS_DIR/yolo-weights/yolo.weights /darknet/data/horses.jpg {parameters}
+      - mv /darknet/predictions.jpg $VH_OUTPUTS_DIR/horses_prediction.jpg
+      - /darknet/darknet detect /darknet/cfg/yolo.cfg $VH_INPUTS_DIR/yolo-weights/yolo.weights /darknet/data/eagle.jpg {parameters}
+      - mv /darknet/predictions.jpg $VH_OUTPUTS_DIR/eagle_prediction.jpg
+    inputs:
+      - name: yolo-weights
+        default: http://pjreddie.com/media/files/yolo.weights
+    parameters:
+      - name: Detection Threshold
+        pass-as: -thresh {v}
+        description: Object detected confidence
+        type: float
+        default: 0.25
 
 - step:
     name: Generate nightmare image, CLI usage example
