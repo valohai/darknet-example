@@ -18,7 +18,6 @@ RUN git clone https://github.com/pjreddie/darknet.git /darknet
 WORKDIR /darknet
 RUN sed -i'' -- 's/GPU=0/GPU=1/g' Makefile
 RUN sed -i'' -- 's/CUDNN=0/CUDNN=1/g' Makefile
-RUN sed -i'' -- 's/OPENCV=0/OPENCV=1/g' Makefile
 RUN make
 
 ENTRYPOINT []

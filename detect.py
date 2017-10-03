@@ -20,4 +20,4 @@ for image_filename in image_files:
         os.path.join(inputs_dir, 'yolo-weights/yolo.weights'),
         image_location,
     ])
-    move('./predictions.jpg', os.path.join(outputs_dir, image_filename))
+    move('./predictions.png', os.path.join(outputs_dir, image_filename))
