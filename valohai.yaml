@@ -2,7 +2,7 @@
 
 - step:
     name: Generate text with RNNs, CLI usage example
-    image: valohai/darknet:b61bcf5-cuda8.0-cudnn5-devel-ubuntu16.04
+    image: valohai/darknet:62b781a-cuda8.0-cudnn5-devel-ubuntu16.04
     command:
       - /darknet/darknet rnn generate /darknet/cfg/rnn.cfg $VH_INPUTS_DIR/rnn-weights/grrm.weights {parameters}
     inputs:
@@ -32,7 +32,7 @@
 
 - step:
     name: Run detect on darknet sample images, cli usage example
-    image: valohai/darknet:b61bcf5-cuda8.0-cudnn5-devel-ubuntu16.04
+    image: valohai/darknet:62b781a-cuda8.0-cudnn5-devel-ubuntu16.04
     command:
       - cd /darknet
       - /darknet/darknet detect /darknet/cfg/yolo.cfg $VH_INPUTS_DIR/yolo-weights/yolo.weights /darknet/data/dog.jpg {parameters}
@@ -55,7 +55,7 @@
 
 - step:
     name: Generate nightmare image, CLI usage example
-    image: valohai/darknet:b61bcf5-cuda8.0-cudnn5-devel-ubuntu16.04
+    image: valohai/darknet:62b781a-cuda8.0-cudnn5-devel-ubuntu16.04
     command:
       - cd $VH_OUTPUTS_DIR
       - /darknet/darknet nightmare /darknet/cfg/vgg-conv.cfg $VH_INPUTS_DIR/weights/vgg-conv.weights /darknet/data/scream.jpg {parameters}
@@ -111,7 +111,7 @@
 
 - step:
     name: Run detect on custom image, script usage example
-    image: valohai/darknet:b61bcf5-cuda8.0-cudnn5-devel-ubuntu16.04
+    image: valohai/darknet:62b781a-cuda8.0-cudnn5-devel-ubuntu16.04
     command: python detect.py
     inputs:
       - name: yolo-weights
